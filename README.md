@@ -1,27 +1,92 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# RemBlog
 
-Currently, two official plugins are available:
+A dynamic platform for sharing thoughts, insights, and information through blog posts. Connect with a community of writers and readers while exploring diverse topics and engaging in meaningful discussions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Authors
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [@isiakaabd](https://www.github.com/isiakaabd)
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Tech Stack
+
+**Client:** Vite, Typescript, Material UI
+
+**Server:**  MongoDB, NodeJs, Express
+
+
+## API Reference
+
+#### Get all posts
+
+```http
+  GET /api/posts/?author=Remlad
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `author` | `string` | **Not Required**. Your UserName |
+
+#### Get item
+
+```http
+  GET /api/post/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of post to fetch |
+
+
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`VITE_APP_BASE_URL`
+
+
+
+## Appendix
+
+Any additional information goes here
+
+
+## 🚀 About Me
+I'm a full stack developer...
+
+
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://katherineoelsner.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/)
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/isiakaabd/Remblog-FE
+```
+
+Go to the project directory
+
+```bash
+  cd remblog
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
