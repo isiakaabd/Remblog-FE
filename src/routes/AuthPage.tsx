@@ -37,7 +37,7 @@ const AuthLayout = () => {
       }}
     >
       <Grid item container sx={{ p: 0 }}>
-        <Grid item container alignItems={'center'} flex={1} p={0}>
+        <Grid item container sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'} flex={1} p={0}>
           <Avatar
             src={image}
             variant="square"

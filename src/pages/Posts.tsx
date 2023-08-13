@@ -22,21 +22,21 @@ export default function Posts() {
             const { author, image, title, _id: id, message } = post;
 
             const filePathWithForwardSlash = image?.replace(/\\/g, '/');
-            console.log(filePathWithForwardSlash);
-            let mode = import.meta.env.MODE;
 
-            const modeValue =
-              mode === 'development'
-                ? import.meta.env.VITE_APP_DEVELOPMENT_URL
-                : import.meta.env.VITE_APP_PRODUCTION_URL;
+            // let mode = import.meta.env.MODE;
 
-            const host = modeValue + filePathWithForwardSlash;
-            console.log(host);
+            // const modeValue =
+            //   mode === 'development'
+            //     ? import.meta.env.VITE_APP_DEVELOPMENT_URL
+            //     : import.meta.env.VITE_APP_PRODUCTION_URL;
+
+            // const host = modeValue + filePathWithForwardSlash;
+            // console.log(filePathWithForwardSlash);
             return (
               <ListItemButton component={Link} to={`/post/${id}`} key={id}>
                 <ListItem key={index} alignItems="flex-start" dense>
                   <ListItemAvatar>
-                    <Avatar alt={author?.username} src={host} />
+                    <Avatar alt={author?.username} src={'/' + filePathWithForwardSlash} />
                     {/* B
               </Avatar> */}
                   </ListItemAvatar>

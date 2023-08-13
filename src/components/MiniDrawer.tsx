@@ -46,7 +46,7 @@ const Drawer: FC = () => {
               REMBLOG
             </Typography>
             {user ? (
-              <Button variant="text" color="secondary" to="/post/create" component={Link}>
+              <Button variant="text" color="secondary" to="/post/create" sx={{ fontSize: '1.2rem' }} component={Link}>
                 Create Post
               </Button>
             ) : (
