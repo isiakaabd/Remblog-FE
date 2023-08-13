@@ -42,7 +42,7 @@ const Post = () => {
 
   const handleLikePost = async () => {
     const data = await likePost(postId);
-    console.log(data);
+
     setTimeout(() => handleClose(), 2000);
   };
 
