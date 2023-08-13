@@ -22,8 +22,16 @@ export default function Posts() {
             const { author, image, title, _id: id, message } = post;
 
             const filePathWithForwardSlash = image?.replace(/\\/g, '/');
-            const host = 'http://localhost:2023/' + filePathWithForwardSlash;
+            console.log(filePathWithForwardSlash);
+            let mode = import.meta.env.MODE;
 
+            const modeValue =
+              mode === 'development'
+                ? import.meta.env.VITE_APP_DEVELOPMENT_URL
+                : import.meta.env.VITE_APP_PRODUCTION_URL;
+
+            const host = modeValue + filePathWithForwardSlash;
+            console.log(host);
             return (
               <ListItemButton component={Link} to={`/post/${id}`} key={id}>
                 <ListItem key={index} alignItems="flex-start" dense>
