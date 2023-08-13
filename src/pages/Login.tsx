@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import CustomButton from 'components/CustomButton';
 import { Formik, Form, FormikHelpers } from 'formik/dist';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, ToastContent } from 'react-toastify';
 import { useLoginMutation } from 'redux/api/authSlice';
 import { getUserDetails } from 'redux/auth/auth.reducers';
 import { useAppDispatch } from 'redux/store';
@@ -30,13 +30,18 @@ const Login = () => {
 
     if ('data' in response) {
       toast.success('Login Successful');
-      console.log(response);
-      dispatch(getUserDetails(response.data));
-      const { from } = location.state || { from: { pathname: '/posts' } }; // Change the default pathname if needed
 
-      setTimeout(() => navigate(from), 2000);
+      dispatch(getUserDetails(response.data));
+      const { from } = location.state || { from: { pathname: '/home' } }; // Change the default pathname if needed
+
+      navigate(from);
       setTimeout(() => resetForm(), 2000);
-    } else toast.error(response.error);
+    } else {
+      if ('error' in response) {
+        const message = response.error;
+        toast.error(message as ToastContent);
+      }
+    }
   };
   return (
     <Grid item container justifyContent={'center'} py={3} gap={6}>
@@ -71,7 +76,7 @@ const Login = () => {
             <Typography textAlign={'center'} mt={2} fontWeight={500}>
               New Here?{' '}
               <Link
-                to="/auth/registration"
+                to="/auth/signup"
                 color="info"
                 style={{
                   textDecoration: 'none',

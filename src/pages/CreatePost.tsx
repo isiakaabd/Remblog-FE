@@ -4,7 +4,7 @@ import { Formik, Form, FormikHelpers } from 'formik/dist';
 import { useCreatePostMutation } from 'redux/api/postQuery/mutation';
 import FormikControl from 'validation/FormikControl';
 import { CreatePostSchema } from 'validation/ValidationSchema';
-import { toast } from 'react-toastify';
+import { toast, ToastContent } from 'react-toastify';
 interface Values {
   title: string;
   image: string;
@@ -19,11 +19,11 @@ const CreatePost = () => {
     form.append('title', title);
     form.append('message', message);
     form.append('image', image[0]);
-    const data = await createPost(form);
+    const response = await createPost(form);
     setTimeout(() => resetForm(), 2000);
-
-    if (data) {
-      toast.success(data);
+    if ('data' in response) {
+      const message = response.data;
+      toast.success(message as ToastContent);
     }
   };
   const initialValues = { title: '', message: '<p><br></p>', image: '' };

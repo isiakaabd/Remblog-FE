@@ -7,63 +7,45 @@ import Typography from '@mui/material/Typography';
 import { useGetPostsQuery } from 'redux/api/postQuery/query';
 import { Link } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
+import LoadingAnimation from 'components/LoadingComponent';
 
-interface PostsProp {
-  _id: string;
-  author: { _id: string; username: string };
-  createdAt: string;
-  image?: string;
-  message: string;
-  title: string;
-}
 export default function Posts() {
-  const { data: posts, isLoading } = useGetPostsQuery({});
+  const { data, isLoading } = useGetPostsQuery({});
 
-  if (isLoading) return <p>Loading...</p>;
-
+  if (isLoading) return <LoadingAnimation />;
+  if (!data) return;
   return (
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper' }} dense>
-        {posts?.length > 0 ? (
-          posts?.map((post: PostsProp, index: number) => {
+        {data?.posts?.length > 0 ? (
+          data?.posts?.map((post, index: number) => {
             const { author, image, title, _id: id, message } = post;
 
             const filePathWithForwardSlash = image?.replace(/\\/g, '/');
             const host = 'http://localhost:2023/' + filePathWithForwardSlash;
 
             return (
-              <>
-                {/* 
-              @ts-ignore */}
-                <ListItemButton component={Link} to={`/post/${id}`}>
-                  <ListItem
-                    key={index}
-                    alignItems="flex-start"
-                    dense
-                    // secondaryAction={
-
-                    // }
-                  >
-                    <ListItemAvatar>
-                      <Avatar alt={author?.username} src={host} />
-                      {/* B
+              <ListItemButton component={Link} to={`/post/${id}`} key={id}>
+                <ListItem key={index} alignItems="flex-start" dense>
+                  <ListItemAvatar>
+                    <Avatar alt={author?.username} src={host} />
+                    {/* B
               </Avatar> */}
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={title}
-                      secondary={
-                        <Typography
-                          sx={{ display: 'inline' }}
-                          dangerouslySetInnerHTML={{ __html: message }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        />
-                      }
-                    />
-                  </ListItem>
-                </ListItemButton>
-              </>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={title}
+                    secondary={
+                      <Typography
+                        sx={{ display: 'inline' }}
+                        dangerouslySetInnerHTML={{ __html: message }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      />
+                    }
+                  />
+                </ListItem>
+              </ListItemButton>
             );
           })
         ) : (

@@ -7,9 +7,9 @@ import { PaletteMode, createTheme } from '@mui/material';
 import getDesignTokens from 'muiTheme';
 import App from 'App';
 import { useGetProfileQuery } from 'redux/api/profileSlice';
-import { RootState, useAppDispatch } from 'redux/store';
+import { useAppDispatch } from 'redux/store';
 import { getUserDetails } from 'redux/auth/auth.reducers';
-import { useSelector } from 'react-redux';
+import LoadingAnimation from 'components/LoadingComponent';
 const AppRoutes = () => {
   const [mode, setMode] = useState<PaletteMode>('light');
   const ColorModeContext = createContext({ toggleColorMode: () => {} });
@@ -27,15 +27,13 @@ const AppRoutes = () => {
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const { data, isLoading } = useGetProfileQuery({});
   const dispatch = useAppDispatch();
-  const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (data?.success) {
       dispatch(getUserDetails(data?.data));
     }
   }, [data]);
-  if (isLoading) return <h1>Loading....</h1>;
-  //  useSelector((state) => state.auth.token);
+  if (isLoading) return <LoadingAnimation />;
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -43,17 +41,10 @@ const AppRoutes = () => {
           <div className="container">
             <Routes>
               <Route element={<App />}>
-                {user ? (
-                  <>
-                    <Route path="/*" element={<PrivateRoutes />} />
-                    <Route index element={<Navigate to="/dashboard" />} />
-                  </>
-                ) : (
-                  <>
-                    <Route path="auth/*" element={<AuthPage />} />
-                    <Route path="*" element={<Navigate to="/auth" />} />
-                  </>
-                )}
+                <Route path="/*" element={<PrivateRoutes />} />
+                <Route index element={<Navigate to="/home" />} />
+                <Route path="auth/*" element={<AuthPage />} />
+                <Route path="*" element={<Navigate to="/auth" />} />
               </Route>
             </Routes>
           </div>

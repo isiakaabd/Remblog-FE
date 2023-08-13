@@ -13,9 +13,9 @@ const CustomButton: FC<CustomButtonProp> = ({ isSubmitting, title, ...rest }) =>
         fontWeight: 600,
         textTransform: 'capitalize',
         color: theme.palette.primary.main,
-        fontSize: { md: '1.2rem', xs: '1rem' },
+        fontSize: { md: '1.6rem', xs: '1.4rem' },
         width: '100%',
-        py: '.3em',
+        py: '.5em',
         backgroundColor: theme.palette.secondary.main,
       }}
       variant="contained"

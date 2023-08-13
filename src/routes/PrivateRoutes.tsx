@@ -7,8 +7,8 @@ const PrivateRoutes: FC = () => {
   return (
     <Routes>
       <Route element={<Drawer />}>
-        <Route path="auth/*" element={<Navigate to="/posts" />} />
-        <Route path="posts" element={<Posts />} />
+        <Route path="auth/*" element={<Navigate to="/" />} />
+        <Route path="/home" element={<Posts />} />
         <Route path="post/:id" element={<Post />} />
         <Route path="post/create" element={<CreatePost />} />
 

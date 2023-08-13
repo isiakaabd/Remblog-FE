@@ -7,6 +7,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BasicMenu from 'components/Menu';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { ToastContent, toast } from 'react-toastify';
+import LoadingAnimation from 'components/LoadingComponent';
 const Post = () => {
   const { id } = useParams();
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
@@ -22,13 +24,22 @@ const Post = () => {
     setAnchorEl(null);
   };
   const { data: post, isLoading } = useGetPostQuery(id);
-  if (isLoading) return <p>Loading..</p>;
+  if (isLoading) return <LoadingAnimation />;
   const { title, _id: postId, liked, canModify, image, message, author, created_at } = post;
   const handleDeletePost = async () => {
-    const data = await deletePost(postId);
-
-    setTimeout(() => handleClose(), 2000);
+    try {
+      const response = await deletePost(postId);
+      if ('data' in response) {
+        toast.success(response.data as ToastContent);
+      }
+      setTimeout(handleClose, 2000);
+    } catch (error) {
+      if (error instanceof Error && 'message' in error) {
+        toast.success(error.message as ToastContent);
+      }
+    }
   };
+
   const handleLikePost = async () => {
     const data = await likePost(postId);
     console.log(data);

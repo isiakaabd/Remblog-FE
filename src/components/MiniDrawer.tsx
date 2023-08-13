@@ -8,7 +8,7 @@ import { FC } from 'react';
 import { RootState, useAppDispatch } from 'redux/store';
 import CustomButton from './CustomButton';
 import { useLogoutMutation } from 'redux/api/authSlice';
-import { toast } from 'react-toastify';
+import { toast, ToastContent } from 'react-toastify';
 import { getUserDetails } from 'redux/auth/auth.reducers';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -26,11 +26,14 @@ const Drawer: FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const [logout, { isLoading }] = useLogoutMutation();
-  if (!user) return;
-  const { username } = user;
+  // if (!user) return;
+  // const { username } = user;
   const handleLogout = async (): Promise<void> => {
-    const { data: message } = await logout({});
-    if (message) toast.success(message);
+    const response = await logout({});
+    if ('data' in response) {
+      const message = response.data;
+      toast.success(message as ToastContent);
+    }
     dispatch(getUserDetails(null));
   };
   return (
@@ -39,24 +42,30 @@ const Drawer: FC = () => {
       <AppBar position="fixed" elevation={0} sx={{ shadow: 0, py: 1, bgcolor: 'Background.default' }}>
         <Toolbar>
           <Grid item container justifyContent="space-between">
-            <Typography variant="h4" sx={{ textDecoration: 'none', color: 'inherit' }} component={Link} to="/posts">
+            <Typography variant="h4" sx={{ textDecoration: 'none', color: 'inherit' }} component={Link} to="/">
               REMBLOG
             </Typography>
             {user ? (
               <Button variant="text" color="secondary" to="/post/create" component={Link}>
                 Create Post
               </Button>
-            ) : null}
-            <Grid item>
-              <Grid item container gap={3} alignItems={'center'}>
-                <Typography variant="body2">
-                  <Typography variant="body2">Welcome</Typography> {username}
-                </Typography>
-                <Grid item>
-                  <CustomButton title="Logout" disabled={isLoading} onClick={handleLogout} />
+            ) : (
+              <Button variant="text" color="secondary" to="/auth/login" component={Link}>
+                Login
+              </Button>
+            )}
+            {user && (
+              <Grid item>
+                <Grid item container gap={3} alignItems={'center'}>
+                  <Typography variant="body2">
+                    <Typography variant="body2">Welcome</Typography> {user?.username}
+                  </Typography>
+                  <Grid item>
+                    <CustomButton title="Logout" disabled={isLoading} onClick={handleLogout} />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+            )}
           </Grid>
         </Toolbar>
       </AppBar>
