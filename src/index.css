@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  font-size: 62.5%;
+  font-family: "Mulish", "sans-serif", "Roboto" !important;
+  scroll-behavior: smooth;
+  width: 100%;
+  scroll-padding-top: 3rem;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
