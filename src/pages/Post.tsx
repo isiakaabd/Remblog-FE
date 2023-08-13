@@ -41,9 +41,17 @@ const Post = () => {
   };
 
   const handleLikePost = async () => {
-    const data = await likePost(postId);
-
-    setTimeout(() => handleClose(), 2000);
+    try {
+      const response = await likePost(postId);
+      if ('data' in response) {
+        toast.success(response.data as ToastContent);
+      }
+      setTimeout(handleClose, 2000);
+    } catch (error) {
+      if (error instanceof Error && 'message' in error) {
+        toast.success(error.message as ToastContent);
+      }
+    }
   };
 
   return (
