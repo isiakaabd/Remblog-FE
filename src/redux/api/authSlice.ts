@@ -20,7 +20,7 @@ export const authSlice = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-
+      //@ts-ignore
       transformErrorResponse: (error: ErrorType | FetchBaseQueryError) => error.data.message,
       transformResponse: (response): any => response,
     }),

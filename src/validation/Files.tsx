@@ -11,7 +11,9 @@ interface Prop {
 const Dropzone: FC<Prop> = ({ name }) => {
   const { setFieldValue } = useFormikContext();
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
+    accept: {
+      'image/*': ['.jpg', '.jpeg', '.png', '.gif'],
+    },
     onDrop: (acceptedFiles) => {
       setFieldValue(name, acceptedFiles);
     },

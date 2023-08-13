@@ -1,3 +1,4 @@
+// @ts-ignore
 import Lottie from 'lottie-react';
 import animationData from 'assets/animation_ll9cfvkm.json'; // Replace with your animation JSON
 import { Grid } from '@mui/material';

@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import CustomButton from 'components/CustomButton';
 import { Formik, Form, FormikHelpers } from 'formik/dist';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, ToastContent } from 'react-toastify';
 import { useRegisterMutation } from 'redux/api/authSlice';
 import FormikControl from 'validation/FormikControl';
 import { LoginSchema } from 'validation/ValidationSchema';
@@ -22,9 +22,14 @@ const Registration = () => {
 
     // const { error, data }
     const response = await register({ username, password });
-    if ('data' in response) toast.success(response.message);
-    else toast.error(response.message);
-    setTimeout(() => resetForm(), 2000);
+    if ('data' in response) {
+      toast.success(response.data);
+      setTimeout(() => resetForm(), 2000);
+    }
+    if ('error' in response) {
+      const message = response.error;
+      toast.error(message as ToastContent);
+    }
   };
   return (
     <Grid item container justifyContent={'center'} py={3} gap={6}>
