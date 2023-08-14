@@ -26,6 +26,7 @@ const CreatePost = () => {
       toast.success(message as ToastContent);
     }
   };
+
   const initialValues = { title: '', message: '', image: '' };
   return (
     <Grid item container>

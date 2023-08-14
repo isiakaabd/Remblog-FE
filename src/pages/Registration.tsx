@@ -19,7 +19,7 @@ const Registration = () => {
   };
   const handleSubmit = async (values: initialValuesTypes, { resetForm }: FormikHelpers<initialValuesTypes>) => {
     const { username, password } = values;
-
+    console.log(values);
     const response = await register({ username, password });
     if ('data' in response) {
       toast.success(response.data);

@@ -24,6 +24,7 @@ const Text: FC<InputProps> = ({ placeholder, name, ...rest }) => {
 
 const Input = (props: InputProps) => {
   const { name, type, ...rest } = props;
+  console.log(props);
   return (
     <Grid container direction="column">
       <Field id={name} name={name} type={type ? type : 'text'} {...rest} as={Text} />
