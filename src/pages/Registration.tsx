@@ -23,7 +23,7 @@ const Registration = () => {
     const response = await register({ username, password });
     if ('data' in response) {
       toast.success(response.data.message);
-      navigate('/login');
+      navigate('/auth/login');
       setTimeout(() => resetForm(), 2000);
     }
     if ('error' in response) {
