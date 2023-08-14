@@ -14,3 +14,7 @@ export interface BasicMenuProp {
   handleClose: () => void;
   children: ReactNode;
 }
+export interface ImageComponentProps {
+  src: string;
+  alt: string;
+}

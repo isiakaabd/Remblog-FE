@@ -10,6 +10,7 @@ import { RootState } from 'redux/store';
 import { ToastContent, toast } from 'react-toastify';
 import LoadingAnimation from 'components/LoadingComponent';
 import { formatDate, modeValue } from 'utils';
+import ImageComponent from 'components/ImageComponent';
 const Post = () => {
   const { id } = useParams();
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
@@ -89,13 +90,8 @@ const Post = () => {
             </Typography>
           </Grid>
           <Grid item container>
-            <Avatar
-              src={host}
-              sx={{ objectFit: 'contain', width: '100%', height: '100%', maxHeight: { md: '60vh', xs: '40vh' } }}
-              alt={author?.username}
-              variant="rounded"
-              imgProps={{ crossOrigin: 'anonymous' }}
-            />
+            <ImageComponent src={host} alt={author?.username} />
+
             <Typography variant="h6" mt={1} fontWeight={600} gutterBottom>
               Posted on: {formatDate(createdAt)}
               <Typography variant="h6" fontWeight={500} mt={1} gutterBottom></Typography>

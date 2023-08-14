@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import './index.css';
 import 'react-quill/dist/quill.snow.css';
+import 'react-photo-view/dist/react-photo-view.css';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
 ReactDOM.createRoot(document.getElementById('root')!).render(
