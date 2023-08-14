@@ -1,10 +1,25 @@
-import { Field, ErrorMessage } from 'formik/dist';
+import { Field, ErrorMessage, useFormikContext } from 'formik/dist';
 import { FC } from 'react';
 import { Grid, TextField } from '@mui/material';
 import TextError from './TextError';
 import { InputProps } from './types';
+type FormValues = {
+  [key: string]: string;
+};
 const Text: FC<InputProps> = ({ placeholder, name, ...rest }) => {
-  return <TextField id="outlined-size-normal" size="small" name={name} label={placeholder} {...rest} margin="dense" />;
+  const { errors, touched } = useFormikContext<FormValues>();
+
+  return (
+    <TextField
+      id={`outlined-${name}`}
+      error={!!errors[name] && touched[name]}
+      size="small"
+      name={name}
+      label={placeholder}
+      {...rest}
+      margin="dense"
+    />
+  );
 };
 
 const Input = (props: InputProps) => {

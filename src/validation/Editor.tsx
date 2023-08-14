@@ -31,17 +31,25 @@ const formats = [
   'link',
   'image',
 ];
-
+type FormValues = {
+  [key: string]: string;
+};
 const Editor: FC<Props> = ({ name, ...rest }) => {
+  const { errors, touched } = useFormikContext<FormValues>();
+
   return (
     <Grid item container flexDirection={'column'} gap={5}>
-      <Field name={name}>{({ field }: FieldProps) => <Quill name={name} field={field} {...rest} />}</Field>
+      <Field name={name}>
+        {({ field }: FieldProps) => (
+          <Quill name={name} field={field} {...rest} error={!!errors[name] && touched[name]} />
+        )}
+      </Field>
       <ErrorMessage name={name} component={TextError} />
     </Grid>
   );
 };
 
-const Quill: FC<{ name: string; field: FieldProps['field'] }> = ({ name, field, ...rest }) => {
+const Quill: FC<{ name: string; error?: boolean; field: FieldProps['field'] }> = ({ name, field, error, ...rest }) => {
   const { setFieldValue } = useFormikContext();
 
   const handleChange = (value: string) => {
@@ -54,7 +62,7 @@ const Quill: FC<{ name: string; field: FieldProps['field'] }> = ({ name, field, 
       theme="snow"
       modules={modules}
       formats={formats}
-      style={{ width: '100%' }}
+      style={{ width: '100%', borderColor: error ? 'red' : undefined }}
       {...rest}
     />
   );

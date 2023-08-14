@@ -26,7 +26,7 @@ const CreatePost = () => {
       toast.success(message as ToastContent);
     }
   };
-  const initialValues = { title: '', message: '<p><br></p>', image: '' };
+  const initialValues = { title: '', message: '', image: '' };
   return (
     <Grid item container>
       <Formik initialValues={initialValues} validationSchema={CreatePostSchema} onSubmit={handleSubmit}>
