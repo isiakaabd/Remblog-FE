@@ -27,7 +27,7 @@ const Post = () => {
   };
   const { data: post, isLoading } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
-  console.log(post);
+
   const { title, _id: postId, liked, canModify, image, message, author, createdAt } = post;
   const handleDeletePost = async () => {
     try {
@@ -78,7 +78,7 @@ const Post = () => {
                   aria-haspopup="true"
                   onClick={handleClick}
                 >
-                  <MoreVertIcon />
+                  <MoreVertIcon fontSize="large" />
                 </IconButton>
               </Grid>
             )}
