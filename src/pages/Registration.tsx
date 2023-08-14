@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import CustomButton from 'components/CustomButton';
 import { Formik, Form, FormikHelpers } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContent } from 'react-toastify';
 import { useRegisterMutation } from 'redux/api/authSlice';
 import FormikControl from 'validation/FormikControl';
@@ -11,18 +11,19 @@ const Registration = () => {
   type initialValuesTypes = {
     username: string;
     password: string;
-    // Other form fields...
   };
+  const navigate = useNavigate();
   const initialValues: initialValuesTypes = {
     username: '',
     password: '',
   };
   const handleSubmit = async (values: initialValuesTypes, { resetForm }: FormikHelpers<initialValuesTypes>) => {
     const { username, password } = values;
-    console.log(values);
+
     const response = await register({ username, password });
     if ('data' in response) {
-      toast.success(response.data);
+      toast.success(response.data.message);
+      navigate('/login');
       setTimeout(() => resetForm(), 2000);
     }
     if ('error' in response) {
@@ -31,11 +32,11 @@ const Registration = () => {
     }
   };
   return (
-    <Grid item container justifyContent={'center'} py={3} gap={6}>
+    <Grid item container flexDirection={'column'} justifyContent={'center'} py={3} gap={6}>
       <Typography variant="h2" textAlign={'center'} gutterBottom>
         Register
       </Typography>
-      <Grid item container>
+      <Grid item>
         <Formik validationSchema={LoginSchema} initialValues={initialValues} onSubmit={handleSubmit}>
           <Form>
             <Grid item container>

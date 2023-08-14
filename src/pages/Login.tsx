@@ -48,10 +48,10 @@ const Login = () => {
       <Typography variant="h2" textAlign={'center'} gutterBottom>
         Login
       </Typography>
-      <Grid item container>
+      <Grid item container justifyContent={'center'}>
         <Formik validationSchema={LoginSchema} initialValues={initialValues} onSubmit={handleSubmit}>
           <Form>
-            <Grid item container>
+            <Grid item container justifyContent={'center'}>
               <Grid item container mb={3}>
                 <FormikControl name="username" placeholder="Username" />
               </Grid>
@@ -70,7 +70,7 @@ const Login = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container mt={2}>
+            <Grid item container mt={4}>
               <CustomButton title={'Submit'} isSubmitting={loading} type="submit" />
             </Grid>
             <Typography textAlign={'center'} mt={2} fontWeight={500}>

@@ -22,6 +22,7 @@ export const authSlice = api.injectEndpoints({
       }),
       //@ts-ignore
       transformErrorResponse: (error: ErrorType | FetchBaseQueryError) => error.data.message,
+      //@ts-ignore
       transformResponse: (response): any => response,
     }),
 

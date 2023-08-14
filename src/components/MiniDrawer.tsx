@@ -41,7 +41,7 @@ const Drawer: FC = () => {
       <CssBaseline />
       <AppBar position="fixed" elevation={0} sx={{ shadow: 0, py: 1, bgcolor: 'Background.default' }}>
         <Toolbar>
-          <Grid item container justifyContent="space-between">
+          <Grid item container alignItems="center" justifyContent="space-between">
             <Typography variant="h4" sx={{ textDecoration: 'none', color: 'inherit' }} component={Link} to="/">
               REMBLOG
             </Typography>
@@ -50,7 +50,13 @@ const Drawer: FC = () => {
                 Create Post
               </Button>
             ) : (
-              <Button variant="text" color="secondary" to="/auth/login" component={Link}>
+              <Button
+                variant="text"
+                color="secondary"
+                to="/auth/login"
+                component={Link}
+                sx={{ color: 'inherit', fontSize: '1.4rem' }}
+              >
                 Login
               </Button>
             )}
@@ -82,7 +88,8 @@ const Drawer: FC = () => {
           flexDirection: 'column',
         }}
       >
-        <Grid item container sx={{ minHeight: '100vh', mt: '6rem' }}>
+        <Toolbar />
+        <Grid item container sx={{ minHeight: '100vh' }}>
           <Outlet />
         </Grid>
       </Box>
