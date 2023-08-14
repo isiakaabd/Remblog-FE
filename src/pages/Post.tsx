@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography, IconButton, MenuItem } from '@mui/material';
+import { Grid, Typography, IconButton, MenuItem } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDeletePostMutation, useLikePostMutation } from 'redux/api/postQuery/mutation';
 import { useGetPostQuery } from 'redux/api/postQuery/query';
