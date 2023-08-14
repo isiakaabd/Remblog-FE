@@ -1,4 +1,4 @@
-import { Field, ErrorMessage, useFormikContext } from 'formik/dist';
+import { Field, ErrorMessage, useFormikContext } from 'formik';
 import { FC } from 'react';
 import { Grid, TextField } from '@mui/material';
 import TextError from './TextError';
@@ -13,10 +13,10 @@ const Text: FC<InputProps> = ({ placeholder, name, ...rest }) => {
     <TextField
       id={`outlined-${name}`}
       error={!!errors[name] && touched[name]}
-      size="small"
       name={name}
       label={placeholder}
       {...rest}
+      size="small"
       margin="dense"
     />
   );

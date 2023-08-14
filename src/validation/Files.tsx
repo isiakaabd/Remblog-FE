@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
-import { useFormikContext } from 'formik/dist';
+import { useFormikContext } from 'formik';
 import { useDropzone } from 'react-dropzone';
-import { Field, ErrorMessage } from 'formik/dist';
+import { Field, ErrorMessage } from 'formik';
 import { FC } from 'react';
 import TextError from './TextError';
 import { InputProps } from './types';

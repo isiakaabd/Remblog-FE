@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import CustomButton from 'components/CustomButton';
-import { Formik, Form, FormikHelpers } from 'formik/dist';
+import { Formik, Form, FormikHelpers } from 'formik';
 import { useCreatePostMutation } from 'redux/api/postQuery/mutation';
 import FormikControl from 'validation/FormikControl';
 import { CreatePostSchema } from 'validation/ValidationSchema';

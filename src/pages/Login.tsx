@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import CustomButton from 'components/CustomButton';
-import { Formik, Form, FormikHelpers } from 'formik/dist';
+import { Formik, Form, FormikHelpers } from 'formik';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContent } from 'react-toastify';
 import { useLoginMutation } from 'redux/api/authSlice';

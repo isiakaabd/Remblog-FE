@@ -1,4 +1,4 @@
-import { Field, ErrorMessage, useFormikContext, FieldProps } from 'formik/dist';
+import { Field, ErrorMessage, useFormikContext, FieldProps } from 'formik';
 import ReactQuill from 'react-quill';
 import { FC } from 'react';
 import { Grid } from '@mui/material';
