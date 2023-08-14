@@ -33,9 +33,9 @@ export default function Posts() {
                   <ListItemAvatar>
                     <Avatar
                       variant="rounded"
-                      alt={author?.username}
                       src={host}
                       sx={{ width: 80, mr: 2, height: 80 }}
+                      alt={author?.username}
                       imgProps={{ crossOrigin: 'anonymous' }}
                     />
                     {/* B
