@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { ToastContent, toast } from 'react-toastify';
 import LoadingAnimation from 'components/LoadingComponent';
+import { formatDate, modeValue } from 'utils';
 const Post = () => {
   const { id } = useParams();
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
@@ -25,7 +26,8 @@ const Post = () => {
   };
   const { data: post, isLoading } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
-  const { title, _id: postId, liked, canModify, image, message, author, created_at } = post;
+  console.log(post);
+  const { title, _id: postId, liked, canModify, image, message, author, createdAt } = post;
   const handleDeletePost = async () => {
     try {
       const response = await deletePost(postId);
@@ -53,36 +55,56 @@ const Post = () => {
       }
     }
   };
-
+  const host = modeValue + image;
   return (
     <>
-      <Grid item container flexDirection={'column'}>
-        <Grid item container justifyContent={'space-between'}>
-          <Grid item>
-            <Avatar src={image} />
-          </Grid>
-          {user && (
-            <Grid item>
-              <IconButton
-                aria-label="more"
-                id="long-button"
-                aria-controls={open ? 'long-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <MoreVertIcon />
-              </IconButton>
-            </Grid>
-          )}
-        </Grid>
+      <Grid item xs={10} md={8} sx={{ marginX: 'auto', py: 4 }}>
         <Grid item container flexDirection={'column'}>
-          <Typography>Title: {title}</Typography>
-          <Typography>Author:{author?.username}</Typography>
-          <Typography>Created on:{created_at}</Typography>
-        </Grid>
-        <Grid item container>
-          <Typography variant="body1">{message}</Typography>
+          <Grid item container flexWrap="nowrap">
+            <Typography variant="h4" gutterBottom flex={1}>
+              Author:
+              <Typography variant="body1" sx={{ fontStyle: 'italic', fontSize: '2rem', fontWeight: 600 }}>
+                {author?.username}
+              </Typography>{' '}
+            </Typography>
+            {user && (
+              <Grid item>
+                <IconButton
+                  aria-label="more"
+                  id="long-button"
+                  aria-controls={open ? 'long-menu' : undefined}
+                  aria-expanded={open ? 'true' : undefined}
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              </Grid>
+            )}
+          </Grid>
+          <Grid item container>
+            <Typography variant="h3" gutterBottom>
+              {' '}
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item container>
+            <Avatar
+              src={host}
+              sx={{ objectFit: 'contain', width: '100%', height: '100%', maxHeight: { md: '60vh', xs: '40vh' } }}
+              alt={author?.username}
+              variant="rounded"
+              imgProps={{ crossOrigin: 'anonymous' }}
+            />
+            <Typography variant="h6" mt={1} fontWeight={600} gutterBottom>
+              Posted on: {formatDate(createdAt)}
+              <Typography variant="h6" fontWeight={500} mt={1} gutterBottom></Typography>
+            </Typography>
+          </Grid>
+
+          <Grid item container mt={2}>
+            <Typography variant="h6" dangerouslySetInnerHTML={{ __html: message }} />
+          </Grid>
         </Grid>
       </Grid>
       <BasicMenu open={open} anchorEl={anchorEl} handleClose={handleClose}>

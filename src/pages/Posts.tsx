@@ -5,9 +5,11 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { useGetPostsQuery } from 'redux/api/postQuery/query';
+import StarBorder from '@mui/icons-material/StarBorder';
 import { Link } from 'react-router-dom';
-import { ListItemButton } from '@mui/material';
+import { ListItemButton, ListItemIcon } from '@mui/material';
 import LoadingAnimation from 'components/LoadingComponent';
+import { modeValue } from 'utils';
 
 export default function Posts() {
   const { data, isLoading } = useGetPostsQuery({});
@@ -21,30 +23,33 @@ export default function Posts() {
           data?.posts?.map((post, index: number) => {
             const { author, image, title, _id: id, message } = post;
 
-            const filePathWithForwardSlash = image?.replace(/\\/g, '/');
-
-            // let mode = import.meta.env.MODE;
-
-            // const modeValue =
-            //   mode === 'development'
-            //     ? import.meta.env.VITE_APP_DEVELOPMENT_URL
-            //     : import.meta.env.VITE_APP_PRODUCTION_URL;
-
-            // const host = modeValue + filePathWithForwardSlash;
-            // console.log(filePathWithForwardSlash);
+            const host = modeValue + image;
             return (
               <ListItemButton component={Link} to={`/post/${id}`} key={id}>
                 <ListItem key={index} alignItems="flex-start" dense>
+                  <ListItemIcon>
+                    <StarBorder fontSize="large" />
+                  </ListItemIcon>
                   <ListItemAvatar>
-                    <Avatar alt={author?.username} src={'/' + filePathWithForwardSlash} />
+                    <Avatar
+                      variant="rounded"
+                      alt={author?.username}
+                      src={host}
+                      sx={{ width: 80, mr: 2, height: 80 }}
+                      imgProps={{ crossOrigin: 'anonymous' }}
+                    />
                     {/* B
               </Avatar> */}
                   </ListItemAvatar>
                   <ListItemText
                     primary={title}
+                    primaryTypographyProps={{
+                      fontSize: { md: '1.8rem', xs: '1.4rem', sm: '1.6rem' },
+                      fontWeight: 600,
+                    }}
                     secondary={
                       <Typography
-                        sx={{ display: 'inline' }}
+                        sx={{ display: 'inline', fontSize: '1.3rem', fontWeight: 500 }}
                         dangerouslySetInnerHTML={{ __html: message }}
                         component="span"
                         variant="body2"
