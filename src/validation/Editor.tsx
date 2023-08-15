@@ -11,22 +11,27 @@ interface Props {
 
 const modules = {
   toolbar: [
-    [{ header: [1, 2, false] }],
+    [{ header: [1, 2, false] }, 'direction'],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-    ['link', 'image'],
-    ['clean'],
+    [{ list: 'ordered' }, { list: 'bullet' }, 'background', { indent: '-1' }, { indent: '+1' }],
+    ['link', 'image', 'align'],
+    ['clean', 'code-block', 'code'],
   ],
 };
 
 const formats = [
+  'direction',
   'header',
   'bold',
   'italic',
   'underline',
   'strike',
   'blockquote',
+  'background',
   'list',
+  'align',
+  'code-block',
+  'code',
   'bullet',
   'indent',
   'link',
