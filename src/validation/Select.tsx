@@ -9,7 +9,7 @@ type FormValues = {
 };
 const ControlledOpenSelect: FC<SelectProps> = ({ placeholder, name, options, ...rest }) => {
   const { errors, touched, values } = useFormikContext<FormValues>();
-  console.log(errors[name]);
+
   return (
     <FormControl>
       <InputLabel id={name}>{placeholder}</InputLabel>
