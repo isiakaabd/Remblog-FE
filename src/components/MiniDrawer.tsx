@@ -41,29 +41,53 @@ const Drawer: FC = () => {
       <CssBaseline />
       <AppBar position="fixed" elevation={0} sx={{ shadow: 0, py: 1, bgcolor: 'Background.default' }}>
         <Toolbar>
-          <Grid item container alignItems="center" justifyContent="space-between">
-            <Typography variant="h4" sx={{ textDecoration: 'none', color: 'inherit' }} component={Link} to="/">
-              REMBLOG
-            </Typography>
-            {user ? (
-              <Button variant="text" color="secondary" to="/post/create" sx={{ fontSize: '1.2rem' }} component={Link}>
-                Create Post
-              </Button>
-            ) : (
-              <Button
-                variant="text"
-                color="secondary"
-                to="/auth/login"
+          <Grid
+            item
+            container
+            alignItems="center"
+            flexWrap={{ md: 'nowrap' }}
+            gap={{ md: 4 }}
+            flexDirection={{ md: 'row', xs: 'column' }}
+            justifyContent="space-between"
+          >
+            <Grid item container>
+              <Typography
+                variant="h4"
+                flex={1}
+                sx={{ textDecoration: 'none', color: 'inherit' }}
                 component={Link}
-                sx={{ color: 'inherit', fontSize: '1.4rem' }}
+                to="/"
               >
-                Login
-              </Button>
-            )}
-            {user && (
+                REMBLOG
+              </Typography>
               <Grid item>
-                <Grid item container gap={3} alignItems={'center'}>
-                  <Typography variant="body2">
+                {user ? (
+                  <Button
+                    variant="text"
+                    color="secondary"
+                    to="/post/create"
+                    sx={{ fontSize: '1.2rem' }}
+                    component={Link}
+                  >
+                    Create Post
+                  </Button>
+                ) : (
+                  <Button
+                    variant="text"
+                    color="secondary"
+                    to="/auth/login"
+                    component={Link}
+                    sx={{ color: 'inherit', fontSize: '1.4rem' }}
+                  >
+                    Login
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+            {user && (
+              <Grid item container>
+                <Grid item container gap={3} sx={{ justifyContent: { md: 'space-between' } }} alignItems={'center'}>
+                  <Typography variant="body2" flex={1}>
                     <Typography variant="body2">Welcome</Typography> {user?.username}
                   </Typography>
                   <Grid item>

@@ -21,21 +21,19 @@ export default function Posts() {
 
             const host = modeValue + image;
             return (
-              <ListItemButton component={Link} to={`/post/${id}`} key={id}>
+              <ListItemButton disableGutters dense component={Link} to={`/post/${id}`} key={id}>
                 <ListItem key={index} alignItems="flex-start" dense>
-                  <ListItemIcon sx={{ minWidth: '4rem' }}>
+                  <ListItemIcon sx={{ minWidth: '4rem', display: { xs: 'none', md: 'block' } }}>
                     <StarBorder fontSize="large" />
                   </ListItemIcon>
                   <ListItemAvatar>
                     <Avatar
                       variant="rounded"
                       src={host}
-                      sx={{ width: '10rem', mt: 0, mr: 2, minHeight: '10rem' }}
+                      sx={{ width: '10rem', mt: 0, mr: 2, minHeight: { md: '10rem', xs: '8rem' } }}
                       alt={author?.username}
                       imgProps={{ crossOrigin: 'anonymous' }}
                     />
-                    {/* B
-              </Avatar> */}
                   </ListItemAvatar>
                   <Text title={title} message={message} category={category} />
                 </ListItem>

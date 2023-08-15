@@ -70,7 +70,7 @@ const Post = () => {
   };
   return (
     <>
-      <Grid item xs={10} md={8} sx={{ marginX: 'auto', py: 4 }}>
+      <Grid item xs={12} md={8} sx={{ marginX: 'auto', py: 4 }}>
         <Grid item container flexDirection={'column'}>
           <Grid item container flexWrap="nowrap">
             <Typography variant="h4" gutterBottom flex={1}>
