@@ -14,6 +14,17 @@ export const PostSlice = api.injectEndpoints({
       transformErrorResponse: (error): any => error.data.message,
       transformResponse: (response: postResponse): any => response.message,
     }),
+    updatePost: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/post/${id}/update`,
+        body,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['post'],
+      //@ts-ignore
+      transformErrorResponse: (error): any => error.data.message,
+      transformResponse: (response: postResponse): any => response.message,
+    }),
     deletePost: builder.mutation({
       query: (id) => ({
         url: `/post/${id}`,
@@ -37,4 +48,4 @@ export const PostSlice = api.injectEndpoints({
   }),
 });
 
-export const { useCreatePostMutation, useDeletePostMutation, useLikePostMutation } = PostSlice;
+export const { useUpdatePostMutation, useCreatePostMutation, useDeletePostMutation, useLikePostMutation } = PostSlice;

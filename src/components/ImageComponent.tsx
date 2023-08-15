@@ -12,7 +12,7 @@ const ImageComponent: FC<ImageComponentProps> = ({ src, alt }) => {
       <PhotoView src={src}>
         <Avatar
           src={src}
-          sx={{ objectFit: 'contain', width: '100%', height: '100%', maxHeight: { md: '60vh', xs: '40vh' } }}
+          sx={{ objectFit: 'cover', width: '100%', height: '100%', maxHeight: { md: '60vh', xs: '40vh' } }}
           alt={alt}
           variant="rounded"
           imgProps={{ crossOrigin: 'anonymous' }}

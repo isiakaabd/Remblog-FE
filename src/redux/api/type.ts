@@ -9,6 +9,7 @@ export interface postResponse {
     author: {
       username: string;
     };
+    category: string;
     createdAt: string;
     updatedAt: string;
   };
@@ -22,7 +23,7 @@ interface Post {
   likes: Array<string>;
   createdAt: string;
   updatedAt: string;
-
+  category: string;
   liked: boolean;
 }
 export interface postResponses {

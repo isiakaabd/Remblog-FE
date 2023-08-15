@@ -3,6 +3,7 @@ import Input from './Input';
 import { FormikControlProps } from './types';
 import Editor from './Editor';
 import Files from './Files';
+import SelectComponent from './Select';
 
 const FormikControl: FC<FormikControlProps> = ({ control, name, ...rest }) => {
   switch (control) {
@@ -10,6 +11,8 @@ const FormikControl: FC<FormikControlProps> = ({ control, name, ...rest }) => {
       return <Input name={name} {...rest} />;
     case 'textarea':
       return <Editor name={name} {...rest} />;
+    case 'select':
+      return <SelectComponent name={name} {...rest} />;
     case 'file':
       return <Files name={name} {...rest} />;
     default:

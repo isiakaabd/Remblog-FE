@@ -11,8 +11,11 @@ import { ToastContent, toast } from 'react-toastify';
 import LoadingAnimation from 'components/LoadingComponent';
 import { formatDate, modeValue } from 'utils';
 import ImageComponent from 'components/ImageComponent';
+import Modals from 'components/Modals';
+import EditPostModal from 'components/EditPostModal';
 const Post = () => {
   const { id } = useParams();
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
   const [likePost, { isLoading: liking }] = useLikePostMutation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,9 +28,13 @@ const Post = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { data: post, isLoading } = useGetPostQuery(id);
+  const handleCloseModal = (): void => {
+    setOpenModal(false);
+    handleClose();
+  };
+  const { data: post, isLoading, error } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
-
+  if (error) return <p>Something Went wrong...</p>;
   const { title, _id: postId, liked, canModify, image, message, author, createdAt } = post;
   const handleDeletePost = async () => {
     try {
@@ -42,7 +49,7 @@ const Post = () => {
       }
     }
   };
-
+  const handleSubmit = () => {};
   const handleLikePost = async () => {
     try {
       const response = await likePost(postId);
@@ -57,6 +64,10 @@ const Post = () => {
     }
   };
   const host = modeValue + image;
+  const handleEditPost = (): void => {
+    handleClose();
+    setOpenModal(true);
+  };
   return (
     <>
       <Grid item xs={10} md={8} sx={{ marginX: 'auto', py: 4 }}>
@@ -105,8 +116,12 @@ const Post = () => {
       </Grid>
       <BasicMenu open={open} anchorEl={anchorEl} handleClose={handleClose}>
         {canModify && <MenuItem onClick={handleDeletePost}>{deleting ? 'Deleting' : 'Delete Post'}</MenuItem>}
+        {canModify && <MenuItem onClick={handleEditPost}>Edit Post</MenuItem>}
         <MenuItem onClick={handleLikePost}>{liking ? 'Loading' : liked ? 'Disliked Post' : 'Like Post'}</MenuItem>
       </BasicMenu>
+      <Modals isOpen={openModal} title="Edit Post" handleClose={handleCloseModal}>
+        <EditPostModal state={post} />
+      </Modals>
     </>
   );
 };

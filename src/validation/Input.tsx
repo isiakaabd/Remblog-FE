@@ -6,13 +6,13 @@ import { InputProps } from './types';
 type FormValues = {
   [key: string]: string;
 };
-const Text: FC<InputProps> = ({ placeholder, name, ...rest }) => {
+const Text: FC<InputProps> = ({ placeholder, name, countError, ...rest }) => {
   const { errors, touched } = useFormikContext<FormValues>();
 
   return (
     <TextField
       id={`outlined-${name}`}
-      error={!!errors[name] && touched[name]}
+      error={(!!errors[name] && touched[name]) || countError}
       name={name}
       label={placeholder}
       {...rest}

@@ -12,4 +12,24 @@ function formatDate(dateString: string): string {
   return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
-export { modeValue, formatDate };
+const selectColor = (category: string): 'primary' | 'secondary' | 'error' | 'info' | 'success' => {
+  switch (category) {
+    case 'sport':
+      return 'success';
+    case 'entertainment':
+      return 'primary';
+    case 'news':
+      return 'secondary';
+    case 'service':
+      return 'error';
+    case 'love':
+      return 'success';
+    case 'romantic':
+      return 'secondary';
+    case 'tech':
+      return 'info';
+    default:
+      return 'primary';
+  }
+};
+export { modeValue, formatDate, selectColor };

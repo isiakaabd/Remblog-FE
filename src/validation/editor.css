@@ -1,0 +1,25 @@
+.ql-container {
+    font-family: "Mulish", "sans-serif", "Roboto" !important;
+    font-size: 1.6rem;
+}
+
+.ql-container.ql-snow {
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 10rem !important;
+    height: 10rem !important
+}
+
+.ql-container.error {
+    border: 1px solid rgba(253, 0, 0, .9) !important;
+}
+
+
+
+/* Example media query for screens with a maximum width of 768px */
+/* @media (max-width: 768px) {
+    .ql-container {
+        max-height: 20rem;
+    }
+
+} */

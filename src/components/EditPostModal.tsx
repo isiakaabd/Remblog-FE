@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import CustomButton from 'components/CustomButton';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
-import { useCreatePostMutation } from 'redux/api/postQuery/mutation';
+import { useUpdatePostMutation } from 'redux/api/postQuery/mutation';
 import FormikControl from 'validation/FormikControl';
 import { CreatePostSchema } from 'validation/ValidationSchema';
 import { toast, ToastContent } from 'react-toastify';
@@ -14,8 +14,10 @@ interface Values {
   category: string;
 }
 
-const CreatePost = () => {
-  const [createPost, { isLoading }] = useCreatePostMutation();
+const EditPostModal = ({ state }: any) => {
+  const { title, message, image, _id, category } = state;
+
+  const [updatePost, { isLoading }] = useUpdatePostMutation();
   const navigate = useNavigate();
   const handleSubmit = async (values: Values, { resetForm }: FormikHelpers<Values>) => {
     const { message, image, title, category } = values;
@@ -23,9 +25,12 @@ const CreatePost = () => {
     const form = new FormData();
     form.append('title', title);
     form.append('message', message);
-    form.append('image', image[0]);
+    form.append('_method', 'PATCH');
+    if (typeof image !== 'string') {
+      form.append('image', image[0]);
+    }
     form.append('category', category);
-    const response = await createPost(form);
+    const response = await updatePost({ id: _id, body: form });
     if ('data' in response) {
       setTimeout(() => resetForm(), 2000);
       setTimeout(() => navigate('/home'), 2100);
@@ -38,7 +43,7 @@ const CreatePost = () => {
   };
   const MaxWordCount = 100;
   const [count, setCount] = useState<number>(0);
-  const initialValues = { title: '', message: '', image: '', category: '' };
+  const initialValues = { title, message, image, category };
   const handleInputChange = (
     event: ChangeEvent<HTMLTextAreaElement>,
     setFieldValue: FormikProps<Values>['setFieldValue'],
@@ -77,9 +82,14 @@ const CreatePost = () => {
   ];
 
   return (
-    <Grid item md={8} xs={12} sm={10} sx={{ py: 4, margin: 'auto' }}>
+    <Grid item md={11} xs={12} sx={{ py: 2, margin: 'auto' }}>
       <Grid item container sx={{ maxWidth: '100%', width: '100%' }}>
-        <Formik initialValues={initialValues} validationSchema={CreatePostSchema} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initialValues}
+          enableReinitialize={true}
+          validationSchema={CreatePostSchema}
+          onSubmit={handleSubmit}
+        >
           {({ setFieldValue }) => (
             <Form style={{ maxWidth: '100%', width: '100%' }}>
               <Grid item flexDirection="column" container gap={4}>
@@ -114,4 +124,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPostModal;
