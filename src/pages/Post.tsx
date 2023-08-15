@@ -49,7 +49,7 @@ const Post = () => {
       }
     }
   };
-  const handleSubmit = () => {};
+  // const handleSubmit = () => {};
   const handleLikePost = async () => {
     try {
       const response = await likePost(postId);
