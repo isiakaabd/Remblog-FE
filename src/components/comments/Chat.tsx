@@ -17,7 +17,6 @@ import {
 import { MoreVertOutlined, Edit, ReportOutlined, PersonAddOutlined, Delete } from '@mui/icons-material';
 
 const Chat: FC<ChatProps> = ({ item }) => {
-  console.log(item);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
