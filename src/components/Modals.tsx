@@ -1,8 +1,8 @@
 import { Dialog, IconButton, DialogContent, DialogTitle } from '@mui/material';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import React from 'react';
+
 import CloseIcon from '@mui/icons-material/CloseOutlined';
 interface ModalProps {
   isOpen: boolean;

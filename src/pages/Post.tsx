@@ -14,6 +14,10 @@ import ImageComponent from 'components/ImageComponent';
 import Modals from 'components/Modals';
 import EditPostModal from 'components/EditPostModal';
 import Seo from 'components/SEO';
+import Chat from 'components/conversation/Chat';
+import Likes from 'components/conversation/Likes';
+import Share from 'components/conversation/Share';
+import ViewCounts from 'components/conversation/ViewCounts';
 const Post = () => {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -66,7 +70,7 @@ const Post = () => {
   };
   const host = modeValue + image;
   const defaultHost = modeValue + 'uploads/R.webp';
-  console.log(defaultHost);
+
   const handleEditPost = (): void => {
     handleClose();
     setOpenModal(true);
@@ -116,6 +120,12 @@ const Post = () => {
           <Grid item container mt={2}>
             <Typography variant="h6" dangerouslySetInnerHTML={{ __html: message }} />
           </Grid>
+        </Grid>
+        <Grid item container mt={{ md: 3, xs: 4 }} justifyContent={'space-between'} flexWrap={'nowrap'}>
+          <Chat />
+          <Likes />
+          <Share />
+          <ViewCounts />
         </Grid>
       </Grid>
       <BasicMenu open={open} anchorEl={anchorEl} handleClose={handleClose}>

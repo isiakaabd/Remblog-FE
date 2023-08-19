@@ -13,7 +13,7 @@ import LoadingAnimation from 'components/LoadingComponent';
 import { HelmetProvider } from 'react-helmet-async';
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const AppRoutes = () => {
-  const [mode, setMode] = useState<PaletteMode>('dark');
+  const [mode, setMode] = useState<PaletteMode>('light');
 
   const colorMode = useMemo(
     () => ({
