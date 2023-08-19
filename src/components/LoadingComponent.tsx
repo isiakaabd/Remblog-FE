@@ -1,7 +1,7 @@
 // @ts-ignore
 import Lottie from 'lottie-react';
 import animationData from 'assets/animation_ll9cfvkm.json'; // Replace with your animation JSON
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 const LoadingAnimation = () => {
   return (
     <Grid
@@ -19,7 +19,9 @@ const LoadingAnimation = () => {
       }}
     >
       <Lottie animationData={animationData} loop autoplay style={{ width: 200, height: 200 }} />
-      <h2 style={{ color: 'white', marginTop: '20px' }}>Remblog</h2>
+      <Typography variant="h2" color={'primary'}>
+        Remblog
+      </Typography>
     </Grid>
   );
 };

@@ -1,15 +1,19 @@
 import { styled } from '@mui/material/styles';
-
-import { Box, Toolbar, CssBaseline, Typography, Grid, Button } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4Outlined';
+import Brightness7Icon from '@mui/icons-material/Brightness7Outlined';
+import { Box, Toolbar, IconButton, CssBaseline, Typography, Grid, Button } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { FC } from 'react';
+import { Theme, useTheme } from '@mui/material/styles';
 import { RootState, useAppDispatch } from 'redux/store';
 import CustomButton from './CustomButton';
 import { useLogoutMutation } from 'redux/api/authSlice';
 import { toast, ToastContent } from 'react-toastify';
 import { getUserDetails } from 'redux/auth/auth.reducers';
+import { useContext } from 'react';
+import { ColorModeContext } from 'routes/AppRoutes';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme }) => ({
@@ -26,8 +30,7 @@ const Drawer: FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const [logout, { isLoading }] = useLogoutMutation();
-  // if (!user) return;
-  // const { username } = user;
+
   const handleLogout = async (): Promise<void> => {
     const response = await logout({});
     if ('data' in response) {
@@ -84,6 +87,7 @@ const Drawer: FC = () => {
                 )}
               </Grid>
             </Grid>
+            <Mode />
             {user && (
               <Grid item container>
                 <Grid item container gap={3} sx={{ justifyContent: { md: 'space-between' } }} alignItems={'center'}>
@@ -118,6 +122,18 @@ const Drawer: FC = () => {
         </Grid>
       </Box>
     </Box>
+  );
+};
+
+const Mode = () => {
+  const theme: Theme = useTheme();
+
+  const colorMode = useContext(ColorModeContext);
+
+  return (
+    <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+      {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+    </IconButton>
   );
 };
 export default Drawer;

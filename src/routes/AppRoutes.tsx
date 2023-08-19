@@ -11,9 +11,10 @@ import { useAppDispatch } from 'redux/store';
 import { getUserDetails } from 'redux/auth/auth.reducers';
 import LoadingAnimation from 'components/LoadingComponent';
 import { HelmetProvider } from 'react-helmet-async';
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const AppRoutes = () => {
-  const [mode, setMode] = useState<PaletteMode>('light');
-  const ColorModeContext = createContext({ toggleColorMode: () => {} });
+  const [mode, setMode] = useState<PaletteMode>('dark');
+
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
