@@ -17,4 +17,12 @@ export interface BasicMenuProp {
 export interface ImageComponentProps {
   src: string;
   alt: string;
+  host: string;
+}
+export interface SEOProps {
+  title: string;
+  description: string;
+  name: string;
+  type: string;
+  image: string;
 }

@@ -13,6 +13,7 @@ import { formatDate, modeValue } from 'utils';
 import ImageComponent from 'components/ImageComponent';
 import Modals from 'components/Modals';
 import EditPostModal from 'components/EditPostModal';
+import Seo from 'components/SEO';
 const Post = () => {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -35,7 +36,7 @@ const Post = () => {
   const { data: post, isLoading, error } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
   if (error) return <p>Something Went wrong...</p>;
-  const { title, _id: postId, liked, canModify, image, message, author, createdAt } = post;
+  const { title, _id: postId, liked, canModify, category, image, message, author, createdAt } = post;
   const handleDeletePost = async () => {
     try {
       const response = await deletePost(postId);
@@ -64,12 +65,15 @@ const Post = () => {
     }
   };
   const host = modeValue + image;
+  const defaultHost = modeValue + 'uploads/R.webp';
+  console.log(defaultHost);
   const handleEditPost = (): void => {
     handleClose();
     setOpenModal(true);
   };
   return (
     <>
+      <Seo title={title} description={message} name={author?.username} image={host} type={category} />
       <Grid item xs={12} md={8} sx={{ marginX: 'auto', py: 4 }}>
         <Grid item container flexDirection={'column'}>
           <Grid item container flexWrap="nowrap">
@@ -101,7 +105,7 @@ const Post = () => {
             </Typography>
           </Grid>
           <Grid item container>
-            <ImageComponent src={host} alt={author?.username} />
+            <ImageComponent src={host} host={defaultHost} alt={author?.username} />
 
             <Typography variant="h6" mt={1} fontWeight={600} gutterBottom>
               Posted on: {formatDate(createdAt)}
