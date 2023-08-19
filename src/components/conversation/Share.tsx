@@ -1,12 +1,13 @@
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
+import CustomToolTip from 'components/CustomToolTip';
 const Share = () => {
   return (
-    <Tooltip title="Share">
+    <CustomToolTip title="Share">
       <IconButton size="large" color="secondary">
         <ShareIcon sx={{ fontSize: { md: '3rem', xs: '2.5rem' } }} />
       </IconButton>
-    </Tooltip>
+    </CustomToolTip>
   );
 };
 

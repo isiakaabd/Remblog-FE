@@ -18,9 +18,13 @@ import Chat from 'components/conversation/Chat';
 import Likes from 'components/conversation/Likes';
 import Share from 'components/conversation/Share';
 import ViewCounts from 'components/conversation/ViewCounts';
+import Comments from 'components/comments';
+import ConversationModal from 'components/conversation/ConversationModal';
 const Post = () => {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const [openConversationModal, setOpenConversationModal] = useState<boolean>(false);
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
   const [likePost, { isLoading: liking }] = useLikePostMutation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -37,6 +41,7 @@ const Post = () => {
     setOpenModal(false);
     handleClose();
   };
+
   const { data: post, isLoading, error } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
   if (error) return <p>Something Went wrong...</p>;
@@ -70,10 +75,12 @@ const Post = () => {
   };
   const host = modeValue + image;
   const defaultHost = modeValue + 'uploads/R.webp';
-
   const handleEditPost = (): void => {
     handleClose();
     setOpenModal(true);
+  };
+  const handleCloseConversationModal = (): void => {
+    setOpenConversationModal(false);
   };
   return (
     <>
@@ -113,7 +120,6 @@ const Post = () => {
 
             <Typography variant="h6" mt={1} fontWeight={600} gutterBottom>
               Posted on: {formatDate(createdAt)}
-              <Typography variant="h6" fontWeight={500} mt={1} gutterBottom></Typography>
             </Typography>
           </Grid>
 
@@ -122,10 +128,13 @@ const Post = () => {
           </Grid>
         </Grid>
         <Grid item container mt={{ md: 3, xs: 4 }} justifyContent={'space-between'} flexWrap={'nowrap'}>
-          <Chat />
+          <Chat handleClick={() => setOpenConversationModal(true)} />
           <Likes />
           <Share />
           <ViewCounts />
+        </Grid>
+        <Grid item container>
+          <Comments />
         </Grid>
       </Grid>
       <BasicMenu open={open} anchorEl={anchorEl} handleClose={handleClose}>
@@ -135,6 +144,9 @@ const Post = () => {
       </BasicMenu>
       <Modals isOpen={openModal} title="Edit Post" handleClose={handleCloseModal}>
         <EditPostModal state={post} />
+      </Modals>
+      <Modals isOpen={openConversationModal} title="Add Comment" handleClose={handleCloseConversationModal}>
+        <ConversationModal />
       </Modals>
     </>
   );

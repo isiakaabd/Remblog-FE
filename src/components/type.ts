@@ -1,5 +1,5 @@
 import { ButtonProps, PopoverProps } from '@mui/material';
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 export interface CustomButtonProp extends ButtonProps {
   isSubmitting?: boolean;
   title: string;
@@ -25,4 +25,8 @@ export interface SEOProps {
   name: string;
   type: string;
   image: string;
+}
+export interface CustomToolTipProps {
+  title: string;
+  children: ReactElement<any, any>;
 }
