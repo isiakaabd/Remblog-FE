@@ -14,12 +14,15 @@ import ImageComponent from 'components/ImageComponent';
 import Modals from 'components/Modals';
 import EditPostModal from 'components/EditPostModal';
 import Seo from 'components/SEO';
-import Chat from 'components/conversation/Chat';
-import Likes from 'components/conversation/Likes';
-import Share from 'components/conversation/Share';
-import ViewCounts from 'components/conversation/ViewCounts';
 import Comments from 'components/comments';
 import ConversationModal from 'components/conversation/ConversationModal';
+import ChatInterface from 'components/ChatInterface';
+
+export interface initialValuesProps {
+  message?: string;
+  postId?: string;
+}
+
 const Post = () => {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -41,7 +44,10 @@ const Post = () => {
     setOpenModal(false);
     handleClose();
   };
-
+  const initialValues = {
+    message: '',
+    postId: id,
+  };
   const { data: post, isLoading, error } = useGetPostQuery(id);
   if (isLoading) return <LoadingAnimation />;
   if (error) return <p>Something Went wrong...</p>;
@@ -82,6 +88,10 @@ const Post = () => {
   const handleCloseConversationModal = (): void => {
     setOpenConversationModal(false);
   };
+  const handleOpenChat = (): void => {
+    setOpenConversationModal(true);
+  };
+
   return (
     <>
       <Seo title={title} description={message} name={author?.username} image={host} type={category} />
@@ -127,15 +137,8 @@ const Post = () => {
             <Typography variant="h6" dangerouslySetInnerHTML={{ __html: message }} />
           </Grid>
         </Grid>
-        <Grid item container mt={{ md: 3, xs: 4 }} justifyContent={'space-between'} flexWrap={'nowrap'}>
-          <Chat handleClick={() => setOpenConversationModal(true)} />
-          <Likes />
-          <Share />
-          <ViewCounts />
-        </Grid>
-        <Grid item container>
-          <Comments />
-        </Grid>
+        <ChatInterface handleClick={handleOpenChat} />
+        <Comments />
       </Grid>
       <BasicMenu open={open} anchorEl={anchorEl} handleClose={handleClose}>
         {canModify && <MenuItem onClick={handleDeletePost}>{deleting ? 'Deleting' : 'Delete Post'}</MenuItem>}
@@ -146,7 +149,7 @@ const Post = () => {
         <EditPostModal state={post} />
       </Modals>
       <Modals isOpen={openConversationModal} title="Add Comment" handleClose={handleCloseConversationModal}>
-        <ConversationModal />
+        <ConversationModal initialValues={initialValues} handleClose={handleCloseConversationModal} />
       </Modals>
     </>
   );

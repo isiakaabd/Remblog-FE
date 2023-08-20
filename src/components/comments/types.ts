@@ -1,7 +1,5 @@
-interface ChatItemsProp {
-  title: string;
-}
+import { Comment } from 'redux/api/comments/type';
 
 export interface ChatProps {
-  item: ChatItemsProp;
+  comment: Comment;
 }
