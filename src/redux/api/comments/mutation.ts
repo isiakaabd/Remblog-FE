@@ -13,27 +13,34 @@ export const CommentSlice = api.injectEndpoints({
       transformErrorResponse: (error): any => error,
       transformResponse: (response: PostComment) => response.message,
     }),
-    // updatePost: builder.mutation({
-    //   query: ({ id, body }) => ({
-    //     url: `/post/${id}/update`,
-    //     body,
-    //     method: 'PATCH',
-    //   }),
-    //   invalidatesTags: ['post'],
-    //   //@ts-ignore
-    //   transformErrorResponse: (error): any => error.data.message,
-    //   transformResponse: (response: postResponse): any => response.message,
-    // }),
-    // deletePost: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/post/${id}`,
-    //     method: 'delete',
-    //   }),
-    //   invalidatesTags: ['post'],
-    //   //@ts-ignore
-    //   // transformErrorResponse: (error): any => error.data.message,
-    //   transformResponse: (response: postResponse): any => response,
-    // }),
+    updateComment: builder.mutation({
+      query: (body) => ({
+        url: `/comments/${body.id}`,
+        body,
+        method: 'PATCH',
+      }),
+      // eslint-disable-next-line
+      //@ts-ignore
+      invalidatesTags: (arg) => [{ type: 'comment', id: arg.id }],
+
+      //@ts-ignore
+      transformErrorResponse: (error): any => error,
+      transformResponse: (response: PostComment) => response.message,
+    }),
+    deleteComment: builder.mutation({
+      query: (body) => ({
+        url: `/comments/${body.id}`,
+        method: 'delete',
+        body,
+      }),
+      // eslint-disable-next-line
+      invalidatesTags: (arg) => [{ type: 'comment', id: arg.id }],
+
+      // invalidatesTags: ['comment'],
+
+      transformErrorResponse: (error): any => error,
+      transformResponse: (response: any) => response.message,
+    }),
     // likePost: builder.mutation({
     //   query: (id) => ({
     //     url: `/post/${id}`,
@@ -47,4 +54,4 @@ export const CommentSlice = api.injectEndpoints({
   }),
 });
 
-export const { useCreateCommentMutation } = CommentSlice;
+export const { useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } = CommentSlice;

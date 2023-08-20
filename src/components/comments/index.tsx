@@ -8,10 +8,10 @@ import { useGetCommentsQuery } from 'redux/api/comments/query';
 
 const Comments: FC = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetCommentsQuery(id);
-  if (isLoading && !data) return <Loader />;
+  const { data, isLoading } = useGetCommentsQuery(id || '');
 
-  if (!data) return <Empty />;
+  if (isLoading && !data) return <Loader />;
+  if (!data || data.comments.length === 0) return <Empty message="No Comment Yet" />;
   return (
     <Grid item container>
       <List dense sx={{ width: '100%' }}>

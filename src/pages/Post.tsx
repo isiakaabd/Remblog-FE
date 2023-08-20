@@ -21,6 +21,8 @@ import ChatInterface from 'components/ChatInterface';
 export interface initialValuesProps {
   message?: string;
   postId?: string;
+  parentId?: string;
+  id?: string;
 }
 
 const Post = () => {

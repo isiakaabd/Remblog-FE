@@ -1,7 +1,7 @@
-import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import login from 'assets/images/login.png';
 import signup from 'assets/images/signup.png';
-import { Avatar, Grid } from '@mui/material';
+import { Avatar, Grid, Typography } from '@mui/material';
 import { Registration, Login } from 'pages';
 
 import { useState, useLayoutEffect } from 'react';
@@ -58,6 +58,23 @@ const AuthLayout = () => {
               p: { md: 5, xs: 3 },
             }}
           >
+            <Typography
+              variant="h3"
+              flex={1}
+              component={Link}
+              to="/home"
+              color="info"
+              sx={{
+                textDecoration: 'none',
+                display: 'block',
+                fontWeight: 700,
+                textAlign: 'center',
+                // color: 'inherit',
+                width: '100%',
+              }}
+            >
+              REMBLOG
+            </Typography>
             <Outlet />
           </Grid>
         </Grid>

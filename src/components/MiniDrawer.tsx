@@ -55,7 +55,7 @@ const Drawer: FC = () => {
           >
             <Grid item container>
               <Typography
-                variant="h4"
+                variant="h3"
                 flex={1}
                 sx={{ textDecoration: 'none', color: 'inherit' }}
                 component={Link}
@@ -86,8 +86,8 @@ const Drawer: FC = () => {
                   </Button>
                 )}
               </Grid>
+              <Mode />
             </Grid>
-            <Mode />
             {user && (
               <Grid item container>
                 <Grid item container gap={3} sx={{ justifyContent: { md: 'space-between' } }} alignItems={'center'}>
@@ -116,6 +116,7 @@ const Drawer: FC = () => {
           flexDirection: 'column',
         }}
       >
+        <Toolbar />
         <Toolbar />
         <Grid item container sx={{ minHeight: '100vh' }}>
           <Outlet />

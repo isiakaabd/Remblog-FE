@@ -1,9 +1,12 @@
 import { Typography } from '@mui/material';
-
-const Empty = () => {
+import { FC } from 'react';
+interface Prop {
+  message?: string;
+}
+const Empty: FC<Prop> = ({ message }) => {
   return (
     <Typography sx={{ width: '100%', textAlign: 'center' }} variant="h2">
-      No Data Found!!
+      {message ? message : 'No Data Found!!'}
     </Typography>
   );
 };

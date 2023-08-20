@@ -3,25 +3,34 @@ import CustomButton from 'components/CustomButton';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { initialValuesProps } from 'pages/Post';
 import { FC } from 'react';
-import { useCreateCommentMutation } from 'redux/api/comments/mutation';
+import { useCreateCommentMutation, useUpdateCommentMutation } from 'redux/api/comments/mutation';
 import FormikControl from 'validation/FormikControl';
 import { toast, ToastContent } from 'react-toastify';
 interface ConversationModalProps {
   initialValues: initialValuesProps;
   handleClose: () => void;
+  type?: 'add' | 'edit';
 }
-const ConversationModal: FC<ConversationModalProps> = ({ initialValues, handleClose }) => {
-  const [createComment, { data, isLoading }] = useCreateCommentMutation();
+const ConversationModal: FC<ConversationModalProps> = ({ initialValues, handleClose, type }) => {
+  const [createComment, { isLoading }] = useCreateCommentMutation();
+  const [updateComment, { isLoading: updating }] = useUpdateCommentMutation();
   const handleSubmit = async (values: initialValuesProps, { resetForm }: FormikHelpers<initialValuesProps>) => {
+    const { message, postId, id, parentId } = values;
     try {
       const params = {
-        message: values.message,
-        postId: values.postId,
+        message,
+        postId,
+        ...(parentId && { parentId }),
+        ...(id && { id }),
       };
-      await createComment(params);
-      toast.success('Post Created' as ToastContent);
+      if (type === 'add') {
+        await createComment(params);
+        toast.success('Post Created' as ToastContent);
+      } else {
+        await updateComment(params);
+        toast.success('Post Created' as ToastContent);
+      }
       resetForm();
-      console.log(data);
       setTimeout(() => handleClose(), 500);
     } catch (error: any) {
       const message = error.data;
@@ -38,7 +47,7 @@ const ConversationModal: FC<ConversationModalProps> = ({ initialValues, handleCl
               <FormikControl name="message" control="textarea" placeholder="Comment" />
             </Grid>
             <Grid item container mt="auto">
-              <CustomButton title="Submit" type="submit" isSubmitting={isLoading} />
+              <CustomButton title="Submit" type="submit" isSubmitting={type === 'edit' ? updating : isLoading} />
             </Grid>
           </Grid>
         </Form>
